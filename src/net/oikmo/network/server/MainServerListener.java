@@ -89,6 +89,14 @@ public class MainServerListener extends Listener {
 			LoginResponse response = new LoginResponse();
 			
 			if(request.PROTOCOL == MainServer.NETWORK_PROTOCOL) {
+				if(request.getUserName() == null || (request.getUserName() != null && request.getUserName().length() > 20)) {
+					response.PROTOCOL = MainServer.NETWORK_PROTOCOL;
+					response.setResponseText("not ok!");
+					connection.sendTCP(response);
+					
+					return;
+				}
+				
 				response.PROTOCOL = MainServer.NETWORK_PROTOCOL;
 				response.setResponseText("ok");
 				connection.sendTCP(response);
@@ -131,11 +139,7 @@ public class MainServerListener extends Listener {
 				PlayersPositionData data = SaveSystem.loadPlayerPositions();
 				System.out.println(data + " data");
 				
-				if(request.getUserName().length() > 20) {
-					response.PROTOCOL = -1;
-					response.setResponseText("not ok!");
-					connection.sendTCP(response);
-				}
+				
 				
 				if(data != null) {
 					PlayerPositionData playerData = data.positions.get(ip);

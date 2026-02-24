@@ -106,7 +106,7 @@ public class MainServer {
 		server = new Server();
 		splashes = Maths.fileToArray("splashes.txt");
 		if(nogui) {
-			append(splashes[new Random().nextInt(splashes.length)]);
+			append(splashes[new Random().nextInt(splashes.length)]+"\n");
 		}
 		kryo = server.getKryo();
 		registerKryoClasses();
@@ -219,7 +219,6 @@ public class MainServer {
 					run();
 				} catch(Exception e) {
 					e.printStackTrace();
-					run();
 				}
 			}
 
@@ -337,10 +336,7 @@ public class MainServer {
 			}
 		});
 
-		if(!nogui) {
-			append(splashes[new Random().nextInt(splashes.length)]);
-		}
-
+		
 		JScrollPane scrollPane = new JScrollPane(logPanel);
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
